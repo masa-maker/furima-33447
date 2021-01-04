@@ -1,24 +1,60 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# テーブル設計
 
-Things you may want to cover:
+## users テーブル
 
-* Ruby version
+| Column        | Type   | Options                   |
+|---------------|--------|---------------------------|
+| NickName      | string | null: false, unique: true |
+| Email         | string | null: false               |
+| Password      | string | null: false               |
+| LastName      | string | null: false               |
+| FirstName     | string | null: false               |
+| LastNameKana  | string | null: false               |
+| FirstNameKana | string | null: false               |
+### Association
 
-* System dependencies
+- has_many :items
+- has_many :purchases
 
-* Configuration
+## items テーブル
 
-* Database creation
+| Column      | Type       | Option                         |
+|-------------|------------|--------------------------------|
+| ItemName    | string     | null: false                    |
+| Info        | text       | null: false                    |
+| Price       | integer    | null: false                    |
+| User        | references | null: false, foreign_key: true |
+### Association
 
-* Database initialization
+- belongs_to :user
+- belongs_to :purchase
 
-* How to run the test suite
+##  purchasesテーブル
 
-* Services (job queues, cache servers, search engines, etc.)
+| Column             | Type       | Options                        |
+| -------------------| ---------- | ------------------------------ |
+| User               | references | null: false, foreign_key: true |
+| Item               | references | null: false, foreign_key: true |
+ 
+### Association
 
-* Deployment instructions
+- belongs_to :user
+- belongs_to :address
+- has_one    :item
 
-* ...
+## address テーブル
+
+| Column       | Type       | Options                        |
+| -------------| ---------- | ------------------------------ |
+| PortalCode   | integer    | null: false                    |
+| City         | string     | null: false                    |
+| Address      | string     | null: false                    |
+| BuildingName | string     |                                |
+| PhoneNumber  | integer    | null: false                    |
+| Purchase     | references | null: false, foreign_key: true |
+
+### Association
+
+- has_one :purchase
