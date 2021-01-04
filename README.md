@@ -7,13 +7,13 @@
 | Column                    | Type    | Options                   |
 |---------------------------|---------|---------------------------|
 | nick_name                 | string  | null: false               |
-| email                     | string  | null: false               |
+| email                     | string  | null: false, unique: true |
 | encrypted_password        | string  | null: false               |
 | last_name                 | string  | null: false               |
 | first_name                | string  | null: false               |
 | last_name_kana            | string  | null: false               |
 | first_name_kana           | string  | null: false               |
-| birth                     | date    | null: false               |
+| birth_id                  | date    | null: false               |
 ### Association
 
 - has_many :items
@@ -21,17 +21,17 @@
 
 ## items テーブル
 
-| Column          | Type       | Option                         |
-|-----------------|------------|--------------------------------|
-| item_name       | string     | null: false                    |
-| info            | text       | null: false                    |
-| price           | integer    | null: false                    |
-| user            | references | null: false, foreign_key: true |
-| category        | integer    | null: false                    |
-| item_status     | integer    | null: false                    |
-| shipping_charge | integer    | null: false                    |
-| prefecture      | integer    | null: false                    |
-| shipping_date   | integer    | null: false                    |
+| Column             | Type       | Option                         |
+|--------------------|------------|--------------------------------|
+| item_name          | string     | null: false                    |
+| info               | text       | null: false                    |
+| price              | integer    | null: false                    |
+| user               | references | null: false, foreign_key: true |
+| category_id        | integer    | null: false                    |
+| item_status_id     | integer    | null: false                    |
+| shipping_charge_id | integer    | null: false                    |
+| prefecture_id      | integer    | null: false                    |
+| shipping_date_id   | integer    | null: false                    |
 ### Association
 
 - belongs_to :user
@@ -55,7 +55,7 @@
 | Column        | Type       | Options                        |
 | --------------| ---------- | ------------------------------ |
 | portal_code   | string     | null: false                    |
-| prefecture    | string     | null: false                    |
+| prefecture_id | string     | null: false                    |
 | city          | string     | null: false                    |
 | address       | string     | null: false                    |
 | building_name | string     |                                |
@@ -64,4 +64,4 @@
 
 ### Association
 
-- has_one :purchase
+- belongs_to :purchase
