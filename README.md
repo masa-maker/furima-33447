@@ -4,15 +4,16 @@
 
 ## users テーブル
 
-| Column        | Type   | Options                   |
-|---------------|--------|---------------------------|
-| NickName      | string | null: false, unique: true |
-| Email         | string | null: false               |
-| Password      | string | null: false               |
-| LastName      | string | null: false               |
-| FirstName     | string | null: false               |
-| LastNameKana  | string | null: false               |
-| FirstNameKana | string | null: false               |
+| Column                    | Type    | Options                   |
+|---------------------------|---------|---------------------------|
+| nick_name                 | string  | null: false               |
+| email                     | string  | null: false               |
+| encrypted_password        | string  | null: false               |
+| last_name                 | string  | null: false               |
+| first_name                | string  | null: false               |
+| last_name_kana            | string  | null: false               |
+| first_name_kana           | string  | null: false               |
+| birth                     | date    | null: false               |
 ### Association
 
 - has_many :items
@@ -20,40 +21,46 @@
 
 ## items テーブル
 
-| Column      | Type       | Option                         |
-|-------------|------------|--------------------------------|
-| ItemName    | string     | null: false                    |
-| Info        | text       | null: false                    |
-| Price       | integer    | null: false                    |
-| User        | references | null: false, foreign_key: true |
+| Column          | Type       | Option                         |
+|-----------------|------------|--------------------------------|
+| item_name       | string     | null: false                    |
+| info            | text       | null: false                    |
+| price           | integer    | null: false                    |
+| user            | references | null: false, foreign_key: true |
+| category        | integer    | null: false                    |
+| item_status     | integer    | null: false                    |
+| shipping_charge | integer    | null: false                    |
+| prefecture      | integer    | null: false                    |
+| shipping_date   | integer    | null: false                    |
 ### Association
 
 - belongs_to :user
-- belongs_to :purchase
+- has_one    :purchase
 
 ##  purchasesテーブル
 
 | Column             | Type       | Options                        |
 | -------------------| ---------- | ------------------------------ |
-| User               | references | null: false, foreign_key: true |
-| Item               | references | null: false, foreign_key: true |
+| user               | references | null: false, foreign_key: true |
+| item               | references | null: false, foreign_key: true |
  
 ### Association
 
-- belongs_to :user
-- belongs_to :address
-- has_one    :item
+- belongs_to    :user
+- has_one       :address
+- belongs_to    :item
 
 ## address テーブル
 
-| Column       | Type       | Options                        |
-| -------------| ---------- | ------------------------------ |
-| PortalCode   | integer    | null: false                    |
-| City         | string     | null: false                    |
-| Address      | string     | null: false                    |
-| BuildingName | string     |                                |
-| PhoneNumber  | integer    | null: false                    |
-| Purchase     | references | null: false, foreign_key: true |
+| Column        | Type       | Options                        |
+| --------------| ---------- | ------------------------------ |
+| portal_code   | string     | null: false                    |
+| prefecture    | string     | null: false                    |
+| city          | string     | null: false                    |
+| address       | string     | null: false                    |
+| building_name | string     |                                |
+| phone_number  | string     | null: false                    |
+| purchase      | references | null: false, foreign_key: true |
 
 ### Association
 
