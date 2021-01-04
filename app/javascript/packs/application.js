@@ -4,7 +4,7 @@
 // that code so it'll be compiled.
 
 require("@rails/ujs").start()
-require("turbolinks").start()
+//require("turbolinks").start()javascriptファイルの処理を正常に動作させるため
 require("@rails/activestorage").start()
 require("channels")
 
