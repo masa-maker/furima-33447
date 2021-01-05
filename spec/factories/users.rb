@@ -5,12 +5,12 @@ FactoryBot.define do
     end
     nick_name              { Faker::Name.name }
     email                  { Faker::Internet.free_email }
-    password               {Faker::Internet.password(min_length: 6)}
-    password_confirmation  {password}
+    password               { Faker::Internet.password(min_length: 6) }
+    password_confirmation  { password} 
     last_name              { person.last.kanji }
     first_name             { person.first.kanji }
     last_name_kana         { person.last.katakana }
     first_name_kana        { person.first.katakana }
-    birth_id               {"1993" "06" "16"}
+    birth_id               { '1993' '06' '16' }
   end
 end
