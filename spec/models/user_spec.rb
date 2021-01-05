@@ -33,6 +33,12 @@ RSpec.describe User, type: :model do
         expect(another_user.errors.full_messages).to include("Email has already been taken")
       end
 
+      it "emailは@含まれていなければ登録できない" do
+        @user.email = "aaaaaa"
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Email is invalid")
+      end
+
       it "passwordが空では登録できない" do
         @user.password = ""
         @user.valid?
@@ -74,12 +80,14 @@ RSpec.describe User, type: :model do
       it "last_name_kanaが入力されていなければ登録することができない" do
         @user.last_name_kana = ""
         @user.valid?
-        expect(@user.errors.full_messages).to include("Last name kana can't be blank","Last name kana  Full-width katakana characters")
+        expect(@user.errors.full_messages).to include("Last name kana can't be blank",
+          "Last name kana Full-width katakana characters")
       end
       it "first_name_kanaが入力されていなければ登録することができない" do
         @user.first_name_kana = ""
         @user.valid?
-        expect(@user.errors.full_messages).to include("First name kana can't be blank", "First name kana  Full-width katakana characters")
+        expect(@user.errors.full_messages).to include("First name kana can't be blank",
+          "First name kana Full-width katakana characters")
       end
 
       it "birth_idが選択されていなければ登録することができない" do
