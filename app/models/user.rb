@@ -5,10 +5,14 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   with_options presence: true do
     validates :nick_name
-    validates :first_name, format: { with: /\A[ぁ-んァ-ヶ一-龥々]+\z/, message: ' Full-width characters' }
-    validates :last_name, format: { with: /\A[ぁ-んァ-ヶ一-龥々]+\z/, message: ' Full-width characters' }
-    validates :last_name_kana, format: { with: /\A[ァ-ヶ一]+\z/, message: "Full-width katakana characters" }
-    validates :first_name_kana, format: { with: /\A[ァ-ヶ一]+\z/, message: "Full-width katakana characters" }
+    with_options format: { with: /\A[ぁ-んァ-ヶ一-龥々]+\z/, message: ' Full-width characters' } do
+      validates :first_name
+      validates :last_name
+    end
+    with_options format: { with: /\A[ァ-ヶ一]+\z/, message: "Full-width katakana characters" } do
+      validates :last_name_kana
+      validates :first_name_kana
+    end
     validates :birth_id
   end
     validates :password, format: { with: (/\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i), message: 'both letters and numbers' }
