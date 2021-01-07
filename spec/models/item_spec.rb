@@ -36,34 +36,34 @@ RSpec.describe Item, type: :model do
           expect(@item.errors.full_messages).to include("Info can't be blank")
         end
 
-        it 'category_idが空だと出品できない' do
-          @item.category_id = ""
+        it 'category_idが1だと出品できない' do
+          @item.category_id = 1
           @item.valid?
-          expect(@item.errors.full_messages).to include("Category can't be blank", "Category Select")
+          expect(@item.errors.full_messages).to include("Category Select")
         end
 
-        it 'item_status_idが空だと出品することができない' do
-          @item.item_status_id = ""
+        it 'item_status_idが1だと出品することができない' do
+          @item.item_status_id = 1
           @item.valid?
-          expect(@item.errors.full_messages).to include("Item status can't be blank", "Item status Select")
+          expect(@item.errors.full_messages).to include("Item status Select")
         end
 
-        it 'shipping_charge_idが空だと出品できない' do
-          @item.shipping_charge_id = ""
+        it 'shipping_charge_idが1だと出品できない' do
+          @item.shipping_charge_id = 1
           @item.valid?
-          expect(@item.errors.full_messages).to include("Shipping charge can't be blank", "Shipping charge Select")
+          expect(@item.errors.full_messages).to include("Shipping charge Select")
         end
 
-        it 'prefecture_idが空だと出品できない' do
-          @item.prefecture_id = ""
+        it 'prefecture_idが1だと出品できない' do
+          @item.prefecture_id = 1
           @item.valid?
-          expect(@item.errors.full_messages).to include("Prefecture can't be blank", "Prefecture Select")
+          expect(@item.errors.full_messages).to include("Prefecture Select")
         end
 
-        it 'shipping_date_idが空だと出品できない' do
-          @item.shipping_date_id = ""
+        it 'shipping_date_idが1だと出品できない' do
+          @item.shipping_date_id = 1
           @item.valid?
-          expect(@item.errors.full_messages).to include("Shipping date can't be blank", "Shipping date Select")
+          expect(@item.errors.full_messages).to include("Shipping date Select")
         end
 
         it 'priceが空だと出品できない' do
@@ -94,6 +94,18 @@ RSpec.describe Item, type: :model do
           @item.price = "あああああ"
           @item.valid?
           expect(@item.errors.full_messages).to include("Price Half-width number")
+        end
+
+        it 'priceが半角英数字混合では出品できない' do
+          @item.price = "aaa111"
+          @item.valid?
+          expect(@item.errors.full_messages).to include("Price Out of setting range", "Price Half-width number")
+        end
+
+        it 'priceが半角英語だけでは出品できない' do
+          @item.price = "aaaaaa"
+          @item.valid?
+          expect(@item.errors.full_messages).to include("Price Out of setting range", "Price Half-width number")
         end
      end
    end
