@@ -2,7 +2,7 @@ class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit,:update, :destroy]
   before_action :authenticate_user!, except: [:show, :index]
   before_action :move_to_index, only: [:edit, :destroy]
-  
+  before_action :sold_out_item, only: [:edit, :destroy]
   def index
     
     @items = Item.includes(:user).order('created_at DESC')
@@ -57,6 +57,7 @@ class ItemsController < ApplicationController
       redirect_to action: :index
     end
   end
-
-  
+  def sold_out_item
+    redirect_to root_path if @item.purchase.present?
+  end
 end

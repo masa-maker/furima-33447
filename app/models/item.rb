@@ -6,7 +6,7 @@ class Item < ApplicationRecord
     validates :item_name
     validates :info
     validates :price,
-              numericality: { only_integer: true, greater_than: 300, less_than: 9_999_999, message: 'Out of setting range' }
+              numericality: { only_integer: true, greater_than: 299, less_than: 10_000_000, message: 'Out of setting range' }
     validates :price, numericality: { with: /\A[0-9]+\z/, message: 'Half-width number' }
   end
 
